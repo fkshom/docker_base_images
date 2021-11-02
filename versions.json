@@ -1,0 +1,14 @@
+{
+    "ubuntu/18.04": {
+        "version": "20211102"
+    },
+    "ubuntu/20.04": {
+        "version": "20211102"
+    },
+    "ubuntu-custom/18.04": {
+        "version": "20211102"
+    },
+    "ubuntu-custom/20.04": {
+        "version": "20211102"
+    }
+}
