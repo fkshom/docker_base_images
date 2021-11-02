@@ -33,24 +33,24 @@ def main(args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("-n", "--dry-run", action="store_true", default=False)
     parser.add_argument("--push", action="store_true", default=False)
-    parser.add_argument("targets", nargs="*", help="target")
+    parser.add_argument("contexts", nargs="*", help="contexts")
     args = parser.parse_args(args)
 
-    targets = args.targets
-    if not targets:
-        targets = find_dockerfile_dirs()
+    contexts = args.contexts
+    if not contexts:
+        contexts = find_dockerfile_dirs()
 
     with open("versions.json", "r") as f:
         versions = json.load(f)
 
     command_runner = CommandRunnner(dry_run_mode=args.dry_run)
 
-    for target in targets:
+    for context in contexts:
 
-        name, tag = target.split('/', 1)
-        version = versions[target]["version"]
+        name, tag = context.split('/', 1)
+        version = versions[context]["version"]
         tag = f"gitlab.com/docker_base_images/{name}:{tag}-{version}"
-        command_runner.run(f"docker build -t {tag} {target}")
+        command_runner.run(f"docker build -t {tag} {context}")
 
         if args.push:
             command_runner.run(f"docker push {tag}")
